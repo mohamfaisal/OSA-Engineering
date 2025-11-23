@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSA Engineering - Premium Fabrication Services</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-dark: #001f3f; /* Deep Navy Blue */
+            --brand-light-blue: #003366; /* Slightly lighter blue for cards */
+            --brand-yellow: #FFD700; /* Industrial Yellow */
+            --brand-gray: #f4f4f4;
+        }
+
+                /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--brand-dark); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--brand-yellow); 
+            border-radius: 6px;
+            border: 3px solid var(--brand-dark); /* Creates a nice padding effect */
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e5c100; 
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .nav-link {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Color Utilities */
+        .bg-brand-dark { background-color: var(--brand-dark); }
+        .bg-brand-blue { background-color: var(--brand-light-blue); }
+        .text-brand-dark { color: var(--brand-dark); }
+        .text-brand-yellow { color: var(--brand-yellow); }
+        .bg-brand-yellow { background-color: var(--brand-yellow); }
+        .border-brand-yellow { border-color: var(--brand-yellow); }
+
+        /* Custom Button */
+        .btn-primary {
+            background-color: var(--brand-yellow);
+            color: var(--brand-dark);
+            font-weight: 700;
+            padding: 12px 30px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--brand-yellow);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--brand-yellow);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--brand-yellow);
+            border: 2px solid var(--brand-yellow);
+            font-weight: 700;
+            padding: 12px 30px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--brand-yellow);
+            color: var(--brand-dark);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section Specifics */
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 31, 63, 0.85), rgba(0, 31, 63, 0.7));
+        }
+
+        /* Industry Card Hover */
+        .industry-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .industry-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .circle-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--brand-yellow);
+            color: var(--brand-dark);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .industry-card:hover .circle-icon {
+            background-color: white;
+            color: var(--brand-dark);
+            transform: scale(1.1);
+        }
+
+        /* Navbar Scroll Effect */
+        header.scrolled {
+            background-color: rgba(0, 31, 63, 0.95);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        /* Service Card */
+        .service-card {
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        .service-card:hover {
+            border-bottom: 4px solid var(--brand-yellow);
+        }
+
+        /* Core Pillar Animation (The Box You Sent) */
+        .pillar-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .pillar-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navigation -->
+    <header class="fixed w-full z-50 transition-all duration-300 py-4 bg-brand-dark text-white" id="navbar">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-2">
+                <div><img src="images/logo osa.png" alt="" width="100" height="100"></div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-lg leading-tight">OSA ENGINEERING</span>
+                    <span class="text-xs text-gray-300 tracking-wider">WORKS LLC</span>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link hover:text-brand-yellow transition-colors font-medium">Home</a>
+                <a href="#about" class="nav-link hover:text-brand-yellow transition-colors font-medium">About</a>
+                <a href="#services" class="nav-link hover:text-brand-yellow transition-colors font-medium">Services</a>
+                <a href="#industries" class="nav-link hover:text-brand-yellow transition-colors font-medium">Industries</a>
+                <a href="#gallery" class="nav-link hover:text-brand-yellow transition-colors font-medium">Gallery</a>
+                <a href="#contact" class="btn-primary text-sm">Contact Us</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-gray-700 absolute w-full">
+            <a href="#home" class="block py-3 px-6 border-b border-gray-700 hover:bg-brand-blue hover:text-brand-yellow">Home</a>
+            <a href="#about" class="block py-3 px-6 border-b border-gray-700 hover:bg-brand-blue hover:text-brand-yellow">About</a>
+            <a href="#services" class="block py-3 px-6 border-b border-gray-700 hover:bg-brand-blue hover:text-brand-yellow">Services</a>
+            <a href="#industries" class="block py-3 px-6 border-b border-gray-700 hover:bg-brand-blue hover:text-brand-yellow">Industries</a>
+            <a href="#contact" class="block py-3 px-6 bg-brand-yellow text-brand-dark font-bold">Contact Us</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center text-white reveal active">
+            <p class="text-brand-yellow font-bold tracking-widest uppercase mb-4">Since 1998</p>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Precision Engineering & <br>
+                <span class="text-brand-yellow">Quality Fabrication</span>
+            </h1>
+            <p class="text-xl mb-10 max-w-2xl mx-auto text-gray-200">
+                Leading and trusted manufacturer of quality Stainless Tanks and industrial equipment across the UAE, Middle East, and Africa.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#services" class="btn-primary">Our Products</a>
+                <a href="#contact" class="btn-outline">Get a Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Pillars Section (Animated Boxes) -->
+    <section class="py-16 bg-white -mt-10 relative z-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="pillar-card bg-white p-8 shadow-lg rounded-lg border-t-4 border-brand-yellow reveal text-center cursor-pointer">
+                    <div class="text-4xl text-brand-dark mb-4 transition-transform duration-300 transform hover:scale-110"><i class="fas fa-industry"></i></div>
+                    <h3 class="text-xl font-bold mb-2 text-brand-dark">Fabrication Work</h3>
+                    <p class="text-gray-600">Expert fabrication for Oil & Gas, Water Treatment, and Renewable Energy industries using advanced machinery.</p>
+                </div>
+                <!-- Card 2 (Dark Blue) -->
+                <div class="pillar-card bg-brand-dark p-8 shadow-lg rounded-lg border-t-4 border-brand-yellow reveal text-center transform md:-translate-y-6 cursor-pointer">
+                    <div class="text-4xl text-brand-yellow mb-4 transition-transform duration-300 transform hover:scale-110"><i class="fas fa-drafting-compass"></i></div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Customer Specific</h3>
+                    <p class="text-gray-300">We tailor-make everything as per customer orders with our specialized engineers and fabricators.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="pillar-card bg-white p-8 shadow-lg rounded-lg border-t-4 border-brand-yellow reveal text-center cursor-pointer">
+                    <div class="text-4xl text-brand-dark mb-4 transition-transform duration-300 transform hover:scale-110"><i class="fas fa-globe-americas"></i></div>
+                    <h3 class="text-xl font-bold mb-2 text-brand-dark">Export Worldwide</h3>
+                    <p class="text-gray-600">Adhering to International Standards, we export to Europe, Asia, the Middle East, and Africa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 reveal">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Factory Floor" class="rounded-lg shadow-2xl">
+                        <div class="absolute -bottom-6 -right-6 bg-brand-yellow p-6 rounded shadow-lg hidden md:block">
+                            <p class="text-4xl font-bold text-brand-dark">25+</p>
+                            <p class="font-semibold text-brand-dark">Years of Excellence</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 reveal">
+                    <h4 class="text-brand-yellow font-bold uppercase tracking-wider mb-2">Who We Are</h4>
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-6">Precise Engineering, <br>Global Standards</h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        OSA Engineering Co. Pvt. Ltd. is distinguished for its exceptional fabrication services and end products, made possible by the use of premium raw materials and advanced equipment. Established in 1998 in the UAE, we have expanded our reach to the Middle East, Africa, and India.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Our departments—from quality control to fabrication and logistics—operate in close coordination to ensure seamless operations and customer satisfaction.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-brand-yellow mr-3"></i>
+                            <span class="text-gray-700 font-medium">Rigorous Quality Control</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-brand-yellow mr-3"></i>
+                            <span class="text-gray-700 font-medium">Post-Sales Support</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-brand-yellow mr-3"></i>
+                            <span class="text-gray-700 font-medium">Timely Delivery</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-brand-yellow mr-3"></i>
+                            <span class="text-gray-700 font-medium">Skilled Professionals</span>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="text-brand-dark font-bold border-b-2 border-brand-yellow hover:text-brand-yellow transition-colors inline-block pb-1">Read Our Story <i class="fas fa-arrow-right ml-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Products Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h4 class="text-brand-yellow font-bold uppercase tracking-wider mb-2">What We Do</h4>
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-dark">Our Products & Services</h2>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">We specialize in manufacturing capital equipment and engineering solutions tailored to diverse needs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Item 1 -->
+                <div class="service-card bg-gray-50 p-6 rounded hover:shadow-xl reveal">
+                    <div class="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+                        <i class="fas fa-drum text-5xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">SS Tanks</h3>
+                    <p class="text-sm text-gray-600">Stainless Steel tanks designed for hygienic and durable storage.</p>
+                </div>
+                <!-- Service Item 2 -->
+                <div class="service-card bg-gray-50 p-6 rounded hover:shadow-xl reveal">
+                    <div class="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+                        <i class="fas fa-database text-5xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Silos</h3>
+                    <p class="text-sm text-gray-600">High-capacity storage silos for grains and industrial materials.</p>
+                </div>
+                 <!-- Service Item 3 -->
+                 <div class="service-card bg-gray-50 p-6 rounded hover:shadow-xl reveal">
+                    <div class="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+                        <i class="fas fa-tint text-5xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">RO Plants</h3>
+                    <p class="text-sm text-gray-600">Purifies water using reverse osmosis for clean output.</p>
+                </div>
+                <!-- Service Item 4 -->
+                <div class="service-card bg-gray-50 p-6 rounded hover:shadow-xl reveal">
+                    <div class="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+                        <i class="fas fa-flask text-5xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Pressure Vessels</h3>
+                    <p class="text-sm text-gray-600">Reliable tanks for compressed gases and fluids.</p>
+                </div>
+                <!-- Service Item 5 -->
+                <div class="service-card bg-gray-50 p-6 rounded hover:shadow-xl reveal">
+                    <div class="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+                        <i class="fas fa-fire text-5xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Steam Boiler</h3>
+                    <p class="text-sm text-gray-600">Heavy duty boilers for industrial heating applications.</p>
+                </div>
+                <!-- Service Item 6 -->
+                <div class="service-card bg-gray-50 p-6 rounded hover:shadow-xl reveal">
+                    <div class="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+                        <i class="fas fa-truck-moving text-5xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Pipeline Works</h3>
+                    <p class="text-sm text-gray-600">Highly reliable pipeline works and on-site fabrication.</p>
+                </div>
+                 <!-- Service Item 7 -->
+                 <div class="service-card bg-gray-50 p-6 rounded hover:shadow-xl reveal">
+                    <div class="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+                        <i class="fas fa-water text-5xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Water Treatment</h3>
+                    <p class="text-sm text-gray-600">Cleans and purifies water for safe industrial and civil use.</p>
+                </div>
+                <!-- Service Item 8 -->
+                <div class="service-card bg-gray-50 p-6 rounded hover:shadow-xl reveal">
+                    <div class="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+                        <i class="fas fa-gas-pump text-5xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Diesel Tanks</h3>
+                    <p class="text-sm text-gray-600">Safe fuel storage for diesel in industrial setups.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section id="industries" class="py-20 bg-brand-dark text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h4 class="text-brand-yellow font-bold uppercase tracking-wider mb-2">Sectors We Serve</h4>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Diverse Industrial Expertise</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Industry 1 -->
+                <div class="industry-card bg-brand-blue p-8 rounded-xl border border-gray-700 flex flex-col items-center text-center reveal">
+                    <div class="circle-icon">
+                        <i class="fas fa-oil-well"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-yellow mb-4">Oil & Gas</h3>
+                    <p class="text-gray-300 text-sm">From upstream to downstream, offshore or onshore, we provide focal solutions for the Oil & Gas sector.</p>
+                </div>
+
+                <!-- Industry 2 -->
+                <div class="industry-card bg-brand-blue p-8 rounded-xl border border-gray-700 flex flex-col items-center text-center reveal">
+                    <div class="circle-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-yellow mb-4">Power & Desalination</h3>
+                    <p class="text-gray-300 text-sm">Supply of vital components like pressure vessels, process skids, and construction engagements.</p>
+                </div>
+
+                <!-- Industry 3 -->
+                <div class="industry-card bg-brand-blue p-8 rounded-xl border border-gray-700 flex flex-col items-center text-center reveal">
+                    <div class="circle-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-yellow mb-4">Water Treatment</h3>
+                    <p class="text-gray-300 text-sm">Partnering to supply bulk storage tanks and chemical dosing systems for wastewater plants.</p>
+                </div>
+
+                <!-- Industry 4 -->
+                <div class="industry-card bg-brand-blue p-8 rounded-xl border border-gray-700 flex flex-col items-center text-center reveal">
+                    <div class="circle-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-yellow mb-4">Food & Beverage</h3>
+                    <p class="text-gray-300 text-sm">Specialized products including Heating Kettles, Filter Tanks, Brewery tanks, Agitators, and CIP systems.</p>
+                </div>
+
+                <!-- Industry 5 -->
+                <div class="industry-card bg-brand-blue p-8 rounded-xl border border-gray-700 flex flex-col items-center text-center reveal">
+                    <div class="circle-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-yellow mb-4">Construction</h3>
+                    <p class="text-gray-300 text-sm">State-of-the-art equipment for batching plants, material handling, and steel structures.</p>
+                </div>
+
+                <!-- Industry 6 -->
+                <div class="industry-card bg-brand-blue p-8 rounded-xl border border-gray-700 flex flex-col items-center text-center reveal">
+                    <div class="circle-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-yellow mb-4">Petrochemicals</h3>
+                    <p class="text-gray-300 text-sm">Concept to commissioning, FEED engineering, construction, and handover for chemical plants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaboration / Stats Section -->
+    <section class="py-16 bg-brand-yellow">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="reveal">
+                    <h3 class="text-4xl font-bold text-brand-dark">25+</h3>
+                    <p class="text-brand-dark font-semibold">Years Experience</p>
+                </div>
+                <div class="reveal">
+                    <h3 class="text-4xl font-bold text-brand-dark">1000+</h3>
+                    <p class="text-brand-dark font-semibold">Projects Completed</p>
+                </div>
+                <div class="reveal">
+                    <h3 class="text-4xl font-bold text-brand-dark">3</h3>
+                    <p class="text-brand-dark font-semibold">Global Locations</p>
+                </div>
+                <div class="reveal">
+                    <h3 class="text-4xl font-bold text-brand-dark">150+</h3>
+                    <p class="text-brand-dark font-semibold">Expert Staff</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Milestones -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-brand-dark mb-12 reveal">Our Journey & Collaboration</h2>
+            <div class="space-y-8">
+                <!-- Event 1 -->
+                <div class="flex flex-col md:flex-row bg-white shadow-md rounded-lg overflow-hidden reveal">
+                    <div class="md:w-1/4 bg-brand-dark text-brand-yellow flex items-center justify-center p-6 font-bold text-xl">
+                        2024
+                    </div>
+                    <div class="p-6 md:w-3/4">
+                        <h3 class="font-bold text-lg mb-2">Connect Souq Event, Dubai</h3>
+                        <p class="text-gray-600">Proudly participated in the Connect Souq Expo, a premier Muslim business networking event, showcasing our advanced tank solutions.</p>
+                    </div>
+                </div>
+                <!-- Event 2 -->
+                <div class="flex flex-col md:flex-row bg-white shadow-md rounded-lg overflow-hidden reveal">
+                    <div class="md:w-1/4 bg-brand-dark text-brand-yellow flex items-center justify-center p-6 font-bold text-xl">
+                        2025
+                    </div>
+                    <div class="p-6 md:w-3/4">
+                        <h3 class="font-bold text-lg mb-2">Rifa Business Meet, Tanzania & Dubai</h3>
+                        <p class="text-gray-600">Represented OSA Engineering at Rifa Meets in Tanzania and Dubai, building business ties across African markets and receiving awards for sponsorship.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl font-bold text-brand-dark">Project Gallery</h2>
+                <p class="text-gray-500">A glimpse into our engineering excellence.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="h-48 bg-gray-200 rounded overflow-hidden reveal">
+                    <img src="https://images.unsplash.com/photo-1597057435443-8a51eeb5538f?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Gallery 1">
+                </div>
+                <div class="h-48 bg-gray-200 rounded overflow-hidden reveal">
+                    <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Gallery 2">
+                </div>
+                <div class="h-48 bg-gray-200 rounded overflow-hidden reveal">
+                    <img src="https://images.unsplash.com/photo-1641893823219-38b433f736c0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Gallery 3">
+                </div>
+                <div class="h-48 bg-gray-200 rounded overflow-hidden reveal">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Gallery 4">
+                </div>
+                 <div class="h-48 bg-gray-200 rounded overflow-hidden reveal">
+                    <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Gallery 5">
+                </div>
+                 <div class="h-48 bg-gray-200 rounded overflow-hidden reveal">
+                    <img src="https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Gallery 6">
+                </div>
+                 <div class="h-48 bg-gray-200 rounded overflow-hidden reveal">
+                    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Gallery 7">
+                </div>
+                 <div class="h-48 bg-gray-200 rounded overflow-hidden reveal">
+                    <img src="https://images.unsplash.com/photo-1744735973756-b2efa8be24c8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Gallery 8">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-brand-dark text-white relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12">
+                
+                <!-- Contact Form -->
+                <div class="lg:w-1/2 reveal">
+                    <h2 class="text-3xl font-bold text-brand-yellow mb-2">Contact Us</h2>
+                    <p class="text-gray-300 mb-8">Request a quote or get in touch with us for a meeting. We undertake all types of fabrication work.</p>
+                    
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Name</label>
+                            <input type="text" class="w-full bg-gray-800 border border-gray-700 rounded p-3 focus:border-brand-yellow focus:outline-none text-white transition-colors" placeholder="Enter your name">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Email</label>
+                            <input type="email" class="w-full bg-gray-800 border border-gray-700 rounded p-3 focus:border-brand-yellow focus:outline-none text-white transition-colors" placeholder="Enter your email">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Message</label>
+                            <textarea class="w-full bg-gray-800 border border-gray-700 rounded p-3 h-32 focus:border-brand-yellow focus:outline-none text-white transition-colors" placeholder="Enter your message"></textarea>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="terms" class="mr-2">
+                            <label for="terms" class="text-sm text-gray-400">I accept Terms and Conditions</label>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">Submit Request</button>
+                    </form>
+                </div>
+
+                <!-- Locations -->
+                <div class="lg:w-1/2 reveal">
+                    <h2 class="text-3xl font-bold text-white mb-8">Our Branches</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- UAE -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-brand-yellow flex items-center justify-center text-brand-dark flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-brand-yellow">UAE (Head Office)</h3>
+                                <p class="text-gray-300">Post Box No 33960, Sharjah, United Arab Emirates.</p>
+                                <p class="text-gray-400 text-sm mt-1">Mob: +971 50 2580100 | Tel: +971 6 5360887</p>
+                            </div>
+                        </div>
+
+                        <!-- Saudi -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-brand-blue border border-gray-600 flex items-center justify-center text-brand-yellow flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Saudi Arabia</h3>
+                                <p class="text-gray-300">Arab Address Trading, As Sinaiyah, Ras Tanura, Eastern Province.</p>
+                                <p class="text-gray-400 text-sm mt-1">Contact: Sultan Siraj | Mob: +966 501278615</p>
+                            </div>
+                        </div>
+
+                        <!-- India -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-brand-blue border border-gray-600 flex items-center justify-center text-brand-yellow flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">India</h3>
+                                <p class="text-gray-300">236/1, Kamaraj Salai, Madurai, Tamil Nadu, India.</p>
+                                <p class="text-gray-400 text-sm mt-1">Mob: +91 9176 770 270 | Email: sales@osaengineering.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map Placeholder -->
+                    <div class="mt-8 w-full h-48 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-700 relative overflow-hidden group">
+                         <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform" alt="Map">
+                        <span class="relative z-10 text-brand-yellow font-bold border-2 border-brand-yellow px-4 py-2 rounded hover:bg-brand-yellow hover:text-brand-dark cursor-pointer transition-colors">View on Google Maps</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t border-gray-800">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm mb-4 md:mb-0">Copyright © 2020-2026. All Rights Reserved by OSA Engineering.</p>
+            <div class="flex space-x-4">
+                <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Animations and Interactivity -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
